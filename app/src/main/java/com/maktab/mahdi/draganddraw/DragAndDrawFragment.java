@@ -3,9 +3,12 @@ package com.maktab.mahdi.draganddraw;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
 
 
 public class DragAndDrawFragment extends Fragment {
@@ -28,9 +31,26 @@ public class DragAndDrawFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_drag_and_draw, container, false);
+        FrameLayout frameLayout=new FrameLayout(getActivity());
+        BoxDrawingView boxDrawingView=new BoxDrawingView(getActivity());
+        frameLayout.addView(boxDrawingView);
+        FrameLayout.LayoutParams boxLayoutParams= (FrameLayout.LayoutParams) boxDrawingView
+                .getLayoutParams();
 
-        return view;
+        boxLayoutParams.height=-1;
+        boxLayoutParams.width=-1;
+        boxDrawingView.setLayoutParams(boxLayoutParams);
+
+        Button button=new Button(getActivity());
+        frameLayout.addView(button,-2,-2);
+        FrameLayout.LayoutParams buttonParams=
+                (FrameLayout.LayoutParams) button.getLayoutParams();
+        buttonParams.gravity= Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL;
+        buttonParams.setMargins(0,0,0,200);
+        button.setLayoutParams(buttonParams);
+        button.setText("test");
+
+        return frameLayout;
     }
 
 }
